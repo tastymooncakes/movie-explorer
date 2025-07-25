@@ -123,24 +123,3 @@ export const ReviewsResponseSchema = z.object({
     total_pages: z.number(),
     total_results: z.number(),
 });
-
-// Validation functions
-export const validateMoviesResponse = (data: unknown) => {
-    return MoviesResponseSchema.parse(data);
-};
-
-export const validateMovieDetails = (data: unknown) => {
-    return MovieDetailsSchema.parse(data);
-};
-
-export const validateCredits = (data: unknown) => {
-    return CreditsSchema.parse(data);
-};
-
-export const validateVideosResponse = (data: unknown) => {
-    return VideosResponseSchema.parse(data);
-};
-
-export const validateReviewsResponse = (data: unknown) => {
-    return ReviewsResponseSchema.parse(data);
-};
