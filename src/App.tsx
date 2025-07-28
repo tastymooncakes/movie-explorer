@@ -4,11 +4,13 @@ import SearchResultsPage from "./pages/SearchResultsPage";
 import Layout from "./components/Layout";
 import MovieDetailsPage from "./pages/MovieDetailsPage";
 import WatchlistPage from "./pages/WatchlistPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   
   return (
       <BrowserRouter>
+        <ScrollToTop />
         <Layout>
           <Routes>
             <Route path="/" element={<HomePage />} />

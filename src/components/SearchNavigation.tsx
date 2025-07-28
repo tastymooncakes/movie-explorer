@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
-import { Search, Home } from 'lucide-react';
+import { Search, Home, Bookmark } from 'lucide-react';
 
 export function SearchNavigation() {
   const navigate = useNavigate();
@@ -23,6 +23,10 @@ export function SearchNavigation() {
 
   const handleHomeClick = useCallback(() => {
     navigate('/');
+  }, [navigate]);
+
+  const handleWatchlistClick = useCallback(() => {
+    navigate('/watchlist');
   }, [navigate]);
 
   return (
@@ -51,6 +55,15 @@ export function SearchNavigation() {
               />
             </div>
           </form>
+
+          {/* Watchlist Button */}
+          <button
+            onClick={handleWatchlistClick}
+            className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
+            aria-label="Go to watchlist"
+          >
+            <Bookmark className="w-6 h-6" />
+          </button>
         </div>
       </div>
     </div>

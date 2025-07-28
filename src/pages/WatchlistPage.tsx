@@ -2,7 +2,8 @@ import { useWatchlist, type SortOption } from '../hooks/useWatchList';
 import { MovieCard } from '@/components/MovieCard';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Trash2, BarChart3 } from 'lucide-react';
+import { Trash2, BarChart3, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function WatchlistPage() {
   const { 
@@ -14,6 +15,9 @@ export default function WatchlistPage() {
     removeFromWatchlist,
     watchlistStats 
   } = useWatchlist();
+
+  const navigate = useNavigate();
+
 
   const handleSortChange = (value: string) => {
     updateSort(value as SortOption);
@@ -37,6 +41,15 @@ export default function WatchlistPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+        {/* Back Button */}
+        <Button 
+            onClick={() => navigate(-1)}
+            variant="ghost"
+            className="text-white hover:text-gray-300 mb-6"
+        >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back
+        </Button>
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-white mb-4">My Watchlist</h1>
@@ -48,9 +61,6 @@ export default function WatchlistPage() {
               <div className="flex items-center gap-2">
                 <BarChart3 className="h-4 w-4" />
                 <span>{watchlistStats.totalMovies} movies</span>
-              </div>
-              <div>
-                Avg Rating: ⭐ {watchlistStats.averageRating}
               </div>
             </div>
 

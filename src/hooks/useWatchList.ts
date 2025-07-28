@@ -223,24 +223,9 @@ export function useWatchlist() {
   // Get watchlist statistics
   const watchlistStats = useCallback(() => {
     const totalMovies = watchlist.length;
-    const totalRuntime = watchlist.reduce((total) => {
-      // Note: Movie type might not have runtime, MovieDetails does
-      // For now, we'll skip runtime calculation since search results don't include it
-      return total;
-    }, 0);
-    
-    const averageRating = watchlist.length > 0 
-      ? watchlist.reduce((sum, movie) => sum + movie.vote_average, 0) / watchlist.length
-      : 0;
-
-    const genres = watchlist.flatMap(movie => movie.genre_ids);
-    const uniqueGenres = new Set(genres);
 
     return {
       totalMovies,
-      totalRuntime, // Will be 0 for now
-      averageRating: Number(averageRating.toFixed(1)),
-      uniqueGenres: uniqueGenres.size,
     };
   }, [watchlist]);
 
