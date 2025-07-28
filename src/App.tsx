@@ -3,7 +3,7 @@ import HomePage from "./pages/HomePage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import Layout from "./components/Layout";
 import MovieDetailsPage from "./pages/MovieDetailsPage";
-import { WatchListPage } from "./pages/WatchlistPage";
+import WatchlistPage from "./pages/WatchlistPage";
 
 function App() {
   
@@ -14,7 +14,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/search" element={<SearchResultsPage />} />
             <Route path="movie/:id" element={<MovieDetailsPage />} />
-            <Route path='/watchlist' element={<WatchListPage />} />
+            <Route path='/watchlist' element={<WatchlistPage />} />
           </Routes>
         </Layout>
       </BrowserRouter>

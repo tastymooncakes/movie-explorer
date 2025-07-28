@@ -1,8 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useMovieDetails, useMovieCredits, useMovieReview, useMovieVideo } from '../hooks/useMovies';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Clock, Star, Calendar, Play } from 'lucide-react';
+import { ArrowLeft, Clock, Star, Calendar, Play, Check, Plus } from 'lucide-react';
 import { getPosterUrl, getProfileUrl } from '../services/tmdb';
+import { useWatchlist } from '@/hooks/useWatchList';
 
 function MovieDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -14,6 +15,8 @@ function MovieDetailsPage() {
   const { data: credits } = useMovieCredits(movieId);
   const { data: videos } = useMovieVideo(movieId);
   const { data: reviews } = useMovieReview(movieId);
+  const { isInWatchlist, toggleWatchlist } = useWatchlist();
+
 
   // Loading state
   if (movieLoading) {
@@ -84,9 +87,17 @@ function MovieDetailsPage() {
     );
   };
 
+  const handleWatchlistToggle = () => {
+    if (movie) {
+      toggleWatchlist(movie);
+    }
+  };
+
   const director = getDirector();
   const trailer = getTrailer();
   const mainCast = credits?.cast.slice(0, 8) || [];
+  const inWatchlist = isInWatchlist(movieId);
+
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -161,14 +172,24 @@ function MovieDetailsPage() {
             <div className="flex gap-4 mb-8">
               <Button
                 size="lg"
-                className="bg-blue-600 hover:bg-blue-700"
-                onClick={() => {
-                  // TODO: Add to watchlist functionality (tomorrow's task)
-                  console.log('Add to watchlist:', movie.id);
-                  alert(`Added "${movie.title}" to watchlist!`); // Temporary feedback
-                }}
+                className={`${
+                  inWatchlist 
+                    ? 'bg-green-600 hover:bg-green-700' 
+                    : 'bg-blue-600 hover:bg-blue-700'
+                }`}
+                onClick={handleWatchlistToggle}
               >
-                Add to Watchlist
+                {inWatchlist ? (
+                  <>
+                    <Check className="mr-2 h-4 w-4" />
+                    In Watchlist
+                  </>
+                ) : (
+                  <>
+                    <Plus className="mr-2 h-4 w-4" />
+                    Add to Watchlist
+                  </>
+                )}
               </Button>
               
               {trailer && (

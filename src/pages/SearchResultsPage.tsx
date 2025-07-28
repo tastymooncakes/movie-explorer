@@ -118,12 +118,6 @@ export default function SearchResultsPage() {
           )}
         </div>
       )}
-
-      {!hasNextPage && allMovies.length > 0 && (
-        <div className="text-center mt-8 text-gray-400">
-          You've reached the end of the results
-        </div>
-      )}
       </div>
   );
 }
