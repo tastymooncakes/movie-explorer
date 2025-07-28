@@ -45,7 +45,7 @@ export default function WatchlistPage() {
         <Button 
             onClick={() => navigate(-1)}
             variant="ghost"
-            className="text-white hover:text-gray-300 mb-6"
+            className="text-white hover:text-black mb-6"
         >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back
@@ -65,15 +65,15 @@ export default function WatchlistPage() {
             </div>
 
             {/* Controls */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               {/* Sort Dropdown */}
-              <div className="flex items-center gap-2">
-                <span className="text-gray-400 text-sm">Sort by:</span>
+              <div className="flex items-center">
+                <span className="text-gray-400 text-sm mr-2">Sort by:</span>
                 <Select value={sortBy} onValueChange={handleSortChange}>
                   <SelectTrigger className="w-40 bg-gray-800 border-gray-600 text-white">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-gray-800 border-gray-600">
+                  <SelectContent className="bg-gray-800 border-gray-600 text-white">
                     <SelectItem value="dateAdded">Date Added</SelectItem>
                     <SelectItem value="title">Title</SelectItem>
                     <SelectItem value="releaseDate">Release Date</SelectItem>
@@ -134,7 +134,6 @@ export default function WatchlistPage() {
           {/* Sort Info */}
           <div className="mb-6 text-gray-400 text-sm">
             Showing {watchlist.length} movies sorted by {getSortLabel(sortBy)} 
-            ({sortDirection === 'asc' ? 'ascending' : 'descending'})
           </div>
 
           {/* Movies Grid */}

@@ -42,7 +42,7 @@ function MovieDetailsPage() {
           <Button 
             onClick={() => navigate(-1)}
             variant="ghost"
-            className="text-white hover:text-gray-300 mb-6"
+            className="text-white hover:text-black mb-6"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back
@@ -106,7 +106,7 @@ function MovieDetailsPage() {
         <Button 
           onClick={() => navigate(-1)}
           variant="ghost"
-          className="text-white hover:text-gray-300 mb-6"
+          className="text-white hover:text-black mb-6"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
@@ -196,7 +196,7 @@ function MovieDetailsPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-gray-600 text-white hover:bg-gray-800"
+                  className="border-gray-600 text-black hover:bg-gray-800 hover:text-white"
                   onClick={() => {
                     window.open(`https://www.youtube.com/watch?v=${trailer.key}`, '_blank');
                   }}
