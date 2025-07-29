@@ -5,6 +5,7 @@ import Layout from "./components/Layout";
 import MovieDetailsPage from "./pages/MovieDetailsPage";
 import WatchlistPage from "./pages/WatchlistPage";
 import ScrollToTop from "./components/ScrollToTop";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   
@@ -17,6 +18,7 @@ function App() {
             <Route path="/search" element={<SearchResultsPage />} />
             <Route path="movie/:id" element={<MovieDetailsPage />} />
             <Route path='/watchlist' element={<WatchlistPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>
       </BrowserRouter>

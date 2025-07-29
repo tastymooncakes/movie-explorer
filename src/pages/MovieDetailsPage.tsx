@@ -5,7 +5,7 @@ import { ArrowLeft, Clock, Star, Calendar, Play, Check, Plus } from 'lucide-reac
 import { getPosterUrl, getProfileUrl } from '../services/tmdb';
 import { useWatchlist } from '@/hooks/useWatchList';
 
-function MovieDetailsPage() {
+export default function MovieDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const movieId = parseInt(id || '0');
@@ -296,5 +296,3 @@ function MovieDetailsPage() {
     </div>
   );
 }
-
-export default MovieDetailsPage;

@@ -6,7 +6,7 @@ interface LayoutProps {
     children: ReactNode;
 }
 
-function Layout({ children }: LayoutProps) {
+export default function Layout({ children }: LayoutProps) {
     const location = useLocation()
 
     const showSearchNavigation = location.pathname.startsWith('/search') || location.pathname.startsWith('/movie')
@@ -19,5 +19,3 @@ function Layout({ children }: LayoutProps) {
         </div>
     )
 }
-
-export default Layout

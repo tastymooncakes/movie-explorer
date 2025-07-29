@@ -4,7 +4,7 @@ import { Bookmark, Search } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function HomePage() {
+export default function HomePage() {
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
 
@@ -62,5 +62,3 @@ function HomePage() {
         </div>
     )
 }
-
-export default HomePage;
