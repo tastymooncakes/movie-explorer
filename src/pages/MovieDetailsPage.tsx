@@ -114,7 +114,6 @@ function MovieDetailsPage() {
 
         {/* Movie Header */}
         <div className="flex flex-col lg:flex-row gap-8 mb-12">
-          {/* Poster - Fixed conditional rendering */}
           <div className="flex-shrink-0">
             <div className="w-80 max-w-full">
               {movie.poster_path ? (
@@ -217,7 +216,7 @@ function MovieDetailsPage() {
           </div>
         </div>
 
-        {/* Cast Section - Fixed conditional rendering for profile images */}
+        {/* Cast Section */}
         {mainCast.length > 0 && (
           <section className="mb-12">
             <h2 className="text-2xl font-bold mb-6">Cast</h2>

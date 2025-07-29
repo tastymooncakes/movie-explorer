@@ -232,8 +232,8 @@ export function useWatchlist() {
   return {
     // Data
     watchlist: sortedWatchlist(),
-    rawWatchlist: watchlist, // Unsorted for internal use
-    isLoaded, // Loading state
+    rawWatchlist: watchlist,
+    isLoaded,
     
     // Actions
     addToWatchlist,

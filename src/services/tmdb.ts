@@ -11,7 +11,8 @@ import {
   MovieDetailsSchema,
   CreditsSchema,
   VideosResponseSchema,
-  ReviewsResponseSchema
+  ReviewsResponseSchema,
+  MovieSchema
 } from '../schema/movie';
 
 // Environment variables with runtime validation
@@ -36,6 +37,78 @@ export class ValidationError extends Error {
     super(message);
     this.name = 'ValidationError';
     this.originalData = originalData;
+  }
+}
+
+function validateMoviesResponseRobust(data: any): MoviesResponse {
+  try {
+    // First try normal validation
+    return MoviesResponseSchema.parse(data);
+  } catch (error) {
+    console.warn('Full validation failed, attempting partial recovery:', error);
+    
+    // If full validation fails, try to salvage what we can
+    if (data && typeof data === 'object' && Array.isArray(data.results)) {
+      const validMovies = [];
+      
+      // Filter through each movie and only keep valid ones
+      for (const movie of data.results) {
+        try {
+          const validMovie = MovieSchema.parse(movie);
+          validMovies.push(validMovie);
+        } catch (movieError) {
+          console.warn('Skipping invalid movie:', movie.id || 'unknown', movieError);
+          // Continue to next movie instead of failing
+        }
+      }
+      
+      // Return a partial response with valid movies
+      const partialResponse: MoviesResponse = {
+        page: typeof data.page === 'number' ? data.page : 1,
+        results: validMovies,
+        total_pages: typeof data.total_pages === 'number' ? data.total_pages : 1,
+        total_results: typeof data.total_results === 'number' ? data.total_results : validMovies.length,
+      };
+      
+      console.info(`Recovered ${validMovies.length} valid movies out of ${data.results.length} total`);
+      return partialResponse;
+    }
+    
+    // If we can't salvage anything, throw the original error
+    throw new ValidationError('Complete data validation failure - no valid movies found', data);
+  }
+}
+
+function validateCreditsRobust(data: any): Credits {
+  try {
+    return CreditsSchema.parse(data);
+  } catch (error) {
+    console.warn('Credits validation failed, attempting partial recovery:', error);
+    
+    // Return partial credits with filtered arrays
+    const partialCredits: Credits = {
+      cast: Array.isArray(data?.cast) ? data.cast.filter((actor: any) => {
+        try {
+          return typeof actor === 'object' && 
+                 typeof actor.id === 'number' && 
+                 typeof actor.name === 'string';
+        } catch {
+          return false;
+        }
+      }) : [],
+      crew: Array.isArray(data?.crew) ? data.crew.filter((crew: any) => {
+        try {
+          return typeof crew === 'object' && 
+                 typeof crew.id === 'number' && 
+                 typeof crew.name === 'string';
+        } catch {
+          return false;
+        }
+      }) : [],
+    };
+    
+    console.info(`Recovered ${partialCredits.cast.length} cast + ${partialCredits.crew.length} crew members`);
+    return partialCredits;
   }
 }
 
@@ -79,10 +152,9 @@ class TMDBClient {
       if (validator) {
         try {
           const validatedData = validator(rawData);
-          console.log('✅ Data validation successful for:', endpoint);
           return validatedData;
         } catch (validationError) {
-          console.error('❌ Validation failed for:', endpoint);
+          console.error('Validation failed for:', endpoint);
           console.error('Validation error:', validationError);
           console.error('Raw data that failed validation:', rawData);
           
@@ -109,7 +181,7 @@ class TMDBClient {
         page,
         include_adult: false,
       },
-      (data) => MoviesResponseSchema.parse(data) as any
+      validateMoviesResponseRobust
     );
   }
 
@@ -127,7 +199,7 @@ class TMDBClient {
     return this.request<Credits>(
       `/movie/${movieId}/credits`,
       {},
-      (data) => CreditsSchema.parse(data) as any
+      validateCreditsRobust
     );
   }
 

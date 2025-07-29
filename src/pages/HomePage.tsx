@@ -37,7 +37,7 @@ function HomePage() {
                     </div>
                 </div>
             </form>
-            {/* Quick Access Section */}
+            {/* Button Section */}
             <div className="flex flex-row gap-4 items-center">
                 <Button
                         type="submit"
@@ -49,7 +49,6 @@ function HomePage() {
                         Search
                 </Button>
                 
-                {/* Watchlist Button */}
                 <Button
                     onClick={() => navigate('/watchlist')}
                     variant="outline"
