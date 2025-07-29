@@ -112,6 +112,7 @@ src/
 │   ├── HomePage.tsx    # Landing page with search
 │   ├── SearchResultsPage.tsx # Search results with infinite scroll
 │   ├── MovieDetailsPage.tsx  # Individual movie details
+│   ├── NotFoundPage.tsx  # 404 Page Note Found Page
 │   └── WatchlistPage.tsx     # Personal watchlist management
 ├── schemas/            # Zod validation schemas
 │   └── movie.ts        # API response validation
