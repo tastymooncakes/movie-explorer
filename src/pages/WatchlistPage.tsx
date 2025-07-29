@@ -85,7 +85,7 @@ export default function WatchlistPage() {
                   variant="ghost"
                   size="sm"
                   onClick={() => updateSort(sortBy)}
-                  className="text-gray-400 hover:text-white"
+                  className="text-gray-400 hover:text-black"
                   title={`Sort ${sortDirection === 'asc' ? 'descending' : 'ascending'}`}
                 >
                   {sortDirection === 'asc' ? '↑' : '↓'}
