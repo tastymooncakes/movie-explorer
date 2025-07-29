@@ -118,7 +118,8 @@ src/
 │   └── movie.ts        # API response validation
 ├── services/           # External service integrations
 │   └── tmdb.ts         # TMDB API client
-└── types/              # TypeScript type definitions
+├── types/              # TypeScript type definitions
+│   ├── watchlist.tx  # Watchlist-related interfaces
     └── movie.ts        # Movie-related interfaces
 ```
 
